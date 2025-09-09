@@ -1,0 +1,55 @@
+.indicator-wrapper{
+    font-size: 24px;
+    display: inline-block;
+    position: absolute;
+    height: 24px;
+}
+.indicator-count{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 10px;
+    background: #fff;
+    border-radius: 10px;
+    min-width: 20px;
+    height: 20px;
+    text-align: center;
+    padding-top: 2px;
+}
+.red-indicator{
+    color: #daa;
+    font-weight: normal;
+}
+.yellow-indicator{
+    color: #fc0;
+    font-weight: normal;
+}
+.green-indicator{
+    color: #38c172;
+    font-weight: normal;
+}
+.blue-indicator{
+    color:#3490dc;
+    font-weight: normal;
+}
+
+.red-count{
+    background: #daa;
+    color: #fff;
+    font-weight: normal;
+}
+.yellow-count{
+    background: #fc0;
+    color: #fff;
+    font-weight: normal;
+}
+.green-count{
+    background: #38c172;
+    color: #fff;
+    font-weight: normal;
+}
+.blue-count{
+    background: #3490dc;
+    color: #fff;
+    font-weight: normal;
+}

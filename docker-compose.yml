@@ -1,0 +1,166 @@
+
+
+networks:
+  general:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.238.0/24"
+  database:
+
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./docker
+      dockerfile: nginx.docker
+    networks:
+      general:
+        ipv4_address: 172.16.238.10
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./docker/nginx/logs:/var/log/nginx/
+      - ./app/:/var/www
+    ports:
+      - "8280:80"
+      - "443:443"
+    tty: true
+
+
+
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: ./
+      dockerfile: docker/php-fpm.docker
+    networks:
+      general:
+        ipv4_address: 172.16.238.11
+      database:
+    volumes:
+      - ./app/:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/uploads.ini
+    environment:
+      - "UPLOAD_LIMIT=20M"
+      #- "DB_PORT=3306"
+      #- "DB_HOST=192.168.1.98"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+      - "POST_MAX_SIZE=20M"
+    tty: true
+
+
+
+  php-cli:
+    container_name: php-cli
+    build:
+      context: ./
+      dockerfile: docker/php-cli.docker
+    networks:
+      general:
+        ipv4_address: 172.16.238.12
+      database:
+    volumes:
+      - ./app/:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/uploads.ini
+      #- ./docker/laravel-queue.conf:/etc/supervisor/conf.d/laravel-queue.conf
+      #- ./docker/laravel-tgbot.conf:/etc/supervisor/conf.d/laravel-tgbot.conf
+    environment:
+      - "UPLOAD_LIMIT=20M"
+      # - "DB_PORT=3306"
+      # - "DB_HOST=localhost"
+    tty: true
+
+
+
+  # mysql:
+  #   container_name: mysql
+  #   #image: mysql:5.7
+  #   build:
+  #     context: ./
+  #     dockerfile: docker/mysql.docker
+  #   command: --sql_mode="ONLY_FULL_GROUP_BY"
+  #   networks:
+  #     - database
+  #   volumes:
+  #     - ./docker/images/mysql:/var/lib/mysql
+  #     - ./backup:/home
+  #     - ./docker/mysql.cnf:/etc/mysql/conf.d/custom.cnf
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=secret
+  #     - MYSQL_DATABASE=app
+  #     - MYSQL_HOST= mysql
+  #     - MYSQL_USER=app
+  #     - MYSQL_PASSWORD=secret
+  #     - MYSQL_PORT=3306
+  #   ports:
+  #     - "33061:3306"
+  #   tty: true
+
+
+
+  # phpmyadmin:
+  #   container_name: phpmyadmin
+  #   image: phpmyadmin
+  #   ports:
+  #     - 8281:80
+  #   environment:
+  #     MYSQL_USERNAME: app
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_PORT_3306_TCP_ADDR: mysql
+  #   tty: true
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8381:80
+    environment:
+      PMA_ARBITRARY: 1
+      MYSQL_USERNAME: app
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PORT_3306_TCP_ADDR: 192.168.1.131:3306
+
+
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "63798:6379"
+    networks:
+      general:
+        ipv4_address: 172.16.238.15
+
+
+
+  # node:
+  #   container_name: node
+  #   networks:
+  #     general:
+  #       ipv4_address: 172.16.238.14
+  #   build:
+  #     context: ./
+  #     dockerfile: docker/node.docker
+  #   volumes:
+  #     - ./app/:/var/www
+  #   tty: true
+
+
+
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq:4-management
+    hostname: rabbitmq
+    restart: always
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ./docker/images/rabbitmq:/var/lib/rabbitmq

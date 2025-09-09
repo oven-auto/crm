@@ -1,0 +1,64 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
+
+// Checkbox
+@import 'checkbox';
+
+@import 'color';
+
+@import 'indicators';
+
+body{
+    font-family: Nunito !important;
+}
+.badge{
+    padding: 5px;
+    text-align: left;
+}
+
+.badge-grey{
+    background-color: #eee;
+    color: #333;
+}
+
+.text-very-muted{
+    color: #ccc;
+}
+
+.h-title{
+    font-size: 20px;
+}
+thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 55px;
+    z-index: 5;
+    background: rgba(20,20,20,0.9);
+}
+.table td{
+    vertical-align: middle;
+}
+
+.badge-search{
+    color: #666;
+    background: #eee;
+    font-weight: normal;
+}
+.drag-icon{
+    float:right;font-size: 1.2rem;margin-top: 3px;
+}
+.drag-icon-top-left{
+    position: absolute;
+    right: 5%;
+    top:15px;
+    font-size: 1.2rem;
+}
+.font-blood{
+    color: #ff3b30;
+}

@@ -1,0 +1,5 @@
+FROM mariadb:10.4
+
+RUN apt-get update && apt-get install -y apt-utils 
+
+WORKDIR /var/www

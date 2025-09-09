@@ -1,0 +1,36 @@
+{
+    "mark_id":"98",
+    "brand_id":"12",
+    "complectation_id":"5",
+    "color_id":"1",
+    "year":"2022",
+    "vin":"XXX111VVV00001478",
+    "order_number":"20",
+    "marker_id":"1",
+    "trade_marker_id":"1",
+    "provider_id":"98",
+    "order_type_id":"1",
+    "order_date":"25.11.2010",
+    "plan_date":"26.11.2011",
+    "build_date":"27.11.2016",
+    "ready_date":"28.11.2017",
+    "request_date":"29.11.2009",
+    "shipment_date":"23.03.2018",
+    "presale_date":"27.03.2001",
+    "technic_id":"47",
+    "audio_code":"1234",
+    "stock_date":"28.03.2022",
+    "invoice_date":"30.03.2031",
+    "ransom_date":"30.03.2100",
+    "purchase_cost":"655",
+    "delivery_terms" : [
+        {
+            "delivery_term_id": 1,
+            "date_at": "30.05.2047"
+        },
+        {
+            "delivery_term_id": 2,
+            "date_at": "30.07.2047"
+        }
+    ]
+}

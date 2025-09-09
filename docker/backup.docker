@@ -1,0 +1,10 @@
+FROM debian:latest
+
+COPY ./docker/scripts/* /etc/periodic/daily
+
+RUN apt-get update && \
+    apt-get upgrade && \ 
+    apt-get install -y apt-utils && \
+    apt-get install -y nano && \
+    apt-get install -y mariadb-client && \
+    chmod a+x /etc/periodic/daily/*
