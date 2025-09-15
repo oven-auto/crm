@@ -11,7 +11,7 @@ networks:
 
 services:
   nginx:
-    container_name: nginx
+    container_name: crm-nginx
     build:
       context: ./docker
       dockerfile: nginx.docker
@@ -30,7 +30,7 @@ services:
 
 
   php-fpm:
-    container_name: php-fpm
+    container_name: crm-php-fpm
     build:
       context: ./
       dockerfile: docker/php-fpm.docker
@@ -53,7 +53,7 @@ services:
 
 
   php-cli:
-    container_name: php-cli
+    container_name: crm-php-cli
     build:
       context: ./
       dockerfile: docker/php-cli.docker
@@ -112,7 +112,7 @@ services:
   #   tty: true
 
   phpmyadmin:
-    container_name: phpmyadmin
+    container_name: crm-phpmyadmin
     image: phpmyadmin
     restart: always
     ports:
@@ -126,7 +126,7 @@ services:
 
 
   redis:
-    container_name: redis
+    container_name: crm-redis
     image: redis:latest
     ports:
       - "63798:6379"
@@ -150,17 +150,17 @@ services:
 
 
 
-  rabbit:
-    container_name: rabbit
-    image: rabbitmq:4-management
-    hostname: rabbitmq
-    restart: always
-    ports:
-      - 15672:15672
-      - 5672:5672
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=admin
-      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
-    volumes:
-      - ./docker/images/rabbitmq:/var/lib/rabbitmq
+  # rabbit:
+  #   container_name: crm-rabbit
+  #   image: rabbitmq:4-management
+  #   hostname: rabbitmq
+  #   restart: always
+  #   ports:
+  #     - 15672:15672
+  #     - 5672:5672
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=admin
+  #     - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+  #   volumes:
+  #     - ./docker/images/rabbitmq:/var/lib/rabbitmq
