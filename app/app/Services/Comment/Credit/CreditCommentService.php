@@ -12,7 +12,7 @@ Class CreditCommentService
     public static $statuses = [];
 
     private const VALUES = [
-        'draft', 'status', 'close', 'contract', 'award_append', 'award_delete', 'sum', 'simple', 'return'
+        'draft', 'status', 'close', 'contract', 'award_append', 'award_delete', 'sum', 'simple', 'return', 'delete'
     ];
 
 
@@ -43,6 +43,7 @@ Class CreditCommentService
         $me->sum();
         $me->simple();
         $me->close();
+        $me->delete();
         $me->dispatch();
     }
 
@@ -63,6 +64,7 @@ Class CreditCommentService
                 'sum' => 'Расчёт №id. Расчётное вознагрождение award_sum (creditor, cost, firstpay, content, monthpay, author, register_at, decorator).',
                 'simple' => 'Расчёт №id. Кредитная заявка упущена (creditor, cost, firstpay, content, monthpay, author).',
                 'return' => 'Расчёт №id. Кредитная заявка возвращена в работу (creditor, cost, firstpay, content, monthpay, author).',
+                'delete' => 'Расчёт №id. Черновик кредитной заявки удален (creditor, cost, firstpay, content, monthpay, author).',
                 default => null,
             };
         
@@ -166,5 +168,16 @@ Class CreditCommentService
             self::append('simple');
         if($old && !$new)
             self::append('return');
+    }
+
+
+
+    public function delete()
+    {
+        if(!$this->credit->id)
+        {
+            $this->credit = $this->old;
+            self::append('delete');
+        }
     }
 }

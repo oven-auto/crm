@@ -100,7 +100,7 @@ class WsmReserveNewCar extends Model implements CommentInterface
 
     public function last_comment()
     {
-        return $this->hasOne(\App\Models\WsmReserveComment::class, 'reserve_id', 'id')->where('type', 0)->orderBy('id', 'DESC')->withDefault();
+        return $this->hasOne(\App\Models\WsmReserveComment::class, 'reserve_id', 'id')->orderBy('id', 'DESC')->withDefault();
     }
 
 

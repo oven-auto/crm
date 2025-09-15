@@ -181,7 +181,7 @@ Class ServiceWorksheetRepository
             $service->refresh();
 
             ServiceCommentService::handle($service, $original);
-
+            dd($service->event);
             return $service;
         }, 1);
 

@@ -13,12 +13,15 @@ Class ReserveCommentRepository
         if(isset($data['reserve_id']))
             $query->where('reserve_id', $data['reserve_id']);
 
-        $query->where('type', 0);
+        // $query->where('type', 0);
 
         $comments = $query->get();
 
         return $comments;
     }
+
+
+
 
 
 

@@ -205,6 +205,10 @@ Class CreditRepository
     public function delete(int $id) : void
     {
         $credit = $this->getById($id);
+        
+        $deleted = app()->make(WSMCredit::class);
+
+        CreditCommentService::handle($deleted, $credit);
 
         $credit->delete();
     }
