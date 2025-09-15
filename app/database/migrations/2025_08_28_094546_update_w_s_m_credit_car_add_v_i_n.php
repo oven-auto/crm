@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('wsm_credit_cars', function (Blueprint $table) {
-            $table->string('vin');
+            $table->dropColumn('vin');
         });
     }
 };

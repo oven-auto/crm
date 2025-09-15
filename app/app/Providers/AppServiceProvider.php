@@ -2,9 +2,15 @@
 
 namespace App\Providers;
 
-use App\Observers\ClientObserver;
+use App\Models\ClientPassport;
+use App\Models\Worksheet\Service\WSMService;
+use App\Models\WSMCredit;
+use App\Models\WSMCreditAward;
+use App\Models\WSMCreditCalculation;
+use App\Models\WSMCreditContract;
 use App\Observers\ServiceClientEventObserver;
 use App\Observers\Worksheet\Modules\ReserveNewCarObserver;
+use App\Observers\WSMCreditObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -45,8 +51,21 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\WsmReserveNewCar::observe(ReserveNewCarObserver::class);
         \App\Models\WsmReservePayment::observe(\App\Observers\PaymentObserver::class);
 
-        \App\Models\ClientPassport::observe(ServiceClientEventObserver::class);
-        \App\Models\Worksheet\Service\WSMService::observe(ServiceClientEventObserver::class);
+        // ClientPassport::observe(ServiceClientEventObserver::class);
+        // WSMService::observe(ServiceClientEventObserver::class);
+
+        collect([ClientPassport::class, WSMService::class])->each(function($item){
+            $item::observe(ServiceClientEventObserver::class);
+        });
+        
+        // collect([
+        //     WSMCreditContract::class, 
+        //     WSMCredit::class, 
+        //     WSMCreditAward::class, 
+        //     WSMCreditCalculation::class
+        // ])->each(function($item){
+        //     $item::observe(WSMCreditObserver::class);
+        // });
         
         Validator::excludeUnvalidatedArrayKeys();
     }

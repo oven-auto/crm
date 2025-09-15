@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 Class AuditMasterFilter extends AbstractFilter
 {
     /**
-     * //TODO Доделать фильтры
      * Сделаны те что в ПДФ (
      * ids, 
      * authors, 

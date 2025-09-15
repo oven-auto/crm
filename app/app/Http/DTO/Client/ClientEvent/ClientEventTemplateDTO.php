@@ -3,6 +3,7 @@
 namespace App\Http\DTO\Client\ClientEvent;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 Class ClientEventTemplateDTO
 {
@@ -18,6 +19,7 @@ Class ClientEventTemplateDTO
         public readonly bool $resolve,
         public readonly int|null $process_id,
         public readonly string|null $links,
+        public readonly int $editor_id,
     )
     {
         
@@ -41,6 +43,7 @@ Class ClientEventTemplateDTO
             resolve: Arr::get($arr, 'resolve'),
             process_id: Arr::get($arr, 'process'),
             links: $links ? json_encode($links) : NULL,
+            editor_id: Auth::id(),
         );
     }
 }

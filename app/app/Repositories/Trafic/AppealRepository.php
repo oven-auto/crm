@@ -45,18 +45,14 @@ Class AppealRepository
                 $query->orderBy('sort');
             }])
             ->leftJoin('trafic_appeals', 'trafic_appeals.appeal_id', 'appeals.id')
-            //->leftJoin('trafic_products','trafic_products.appeal_id','appeals.id')
-            //->leftJoin('product_groups','trafic_products.group_id', 'product_groups.id')
-            //->orderBy('product_groups.sort')
             ->orderBy('appeals.sort')
             ->groupBy('appeals.id')
             ->groupBy('trafic_appeals.id')
-            //->groupBy('product_groups.sort')
-            ->whereIn('trafic_appeals.company_structure_id', $structures);
+            ->whereIn('trafic_appeals.company_structure_id', $structures)
+            ->orWhereNull('trafic_appeals.company_structure_id');
 
         $appeals = $query->get();
-
-       // dd($appeals);
+        
         return $appeals;
     }
 }

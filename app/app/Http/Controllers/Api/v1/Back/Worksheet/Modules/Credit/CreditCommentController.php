@@ -36,7 +36,7 @@ class CreditCommentController extends Controller
      */
     public function index(CommentListRequest $request)
     {
-        $comments = WSMCreditComment::where('worksheet_id', $request->validated())->get();
+        $comments = WSMCreditComment::where('worksheet_id', $request->validated())->orderBy('id', 'DESC')->get();
 
         return new CommentServiceCollection($comments);
     }

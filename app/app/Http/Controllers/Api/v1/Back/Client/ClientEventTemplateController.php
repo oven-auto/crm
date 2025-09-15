@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\ClientEventTemplateCreateRequest;
 use App\Http\Resources\Client\ClientEvent\ClientEventTemplateCollection;
 use App\Http\Resources\Client\ClientEvent\ClientEventTemplateItemResource;
+use App\Http\Resources\Default\SuccessResource;
 use App\Repositories\Client\ClientEventTemplateRepository;
 use Illuminate\Http\Request;
 
@@ -135,7 +136,7 @@ class ClientEventTemplateController extends Controller
     {
         $template = $this->repo->delete($id);
 
-        return new ClientEventTemplateItemResource($template);
+        return new SuccessResource(1);
     }
 
 
@@ -156,6 +157,6 @@ class ClientEventTemplateController extends Controller
     {
         $template = $this->repo->restore($id);
 
-        return new ClientEventTemplateItemResource($template);
+        return new SuccessResource(1);
     }
 }

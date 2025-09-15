@@ -21,7 +21,7 @@ Class SubActionComment extends AbstractComment
     public function create(CommentInterface $model)
     {
         return array_merge($this->data, [
-            'text' => 'Создана подзадача '.$model->title,
+            'text' => 'Создана задача '.$model->title,
             'type' => 1,
         ]);
     }
@@ -52,6 +52,7 @@ Class SubActionComment extends AbstractComment
     {
         if(isset($data['executors']))
             $users = User::whereIn('id', $data['executors'])->get()->map(fn($item) => $item->cut_name)->toArray();
+            
             return array_merge($this->data, [
                 'text' => 'В задачу добавлен новый участник: '.join(' ', $users),
                 'type' => 1,

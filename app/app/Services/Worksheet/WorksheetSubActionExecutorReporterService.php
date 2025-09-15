@@ -40,12 +40,16 @@ class WorksheetSubActionExecutorReporterService
         $subAction->executors()->attach($subActionUser);
         //Добавляем в участники рабочего листа
         $worksheet = \App\Models\Worksheet::findOrFail($subAction->worksheet_id);
+
         $userCollect =  \App\Models\User::whereIn('id', $subActionUser)->get();
+        
         $this->worksheetExecutorService->attach($worksheet, $userCollect);
         //уведомлялка в телеграм всем участникам которых добавили
         TelegramNotice::run($subAction)->executor()->send(ArrayHelper::except($subActionUser, auth()->user()->id));
         //Записать комментарий
-        Comment::add($subAction, 'append_executors', ['executors' => $subActionUser]);
+        
+        if(count($subActionUser))
+            Comment::add($subAction, 'append_executors', ['executors' => $subActionUser]);
 
         $subAction->load('executors');
     }

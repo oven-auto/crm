@@ -11,13 +11,13 @@ class ClientEventTemplate extends Model
 {
     use HasFactory, Filterable, SoftDeletes;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'title', 'group_id','type_id', 
         'comment', 'name', 'begin', 
         'executors', 'status', 'author_id', 
-        'resolve', 'process_id', 'links'
+        'resolve', 'process_id', 'links', 'editor_id'
     ];
 
 
@@ -25,6 +25,13 @@ class ClientEventTemplate extends Model
     public function process()
     {
         return $this->hasOne(\App\Models\ClientEventTemplateProcess::class, 'id', 'process_id');
+    }
+
+
+
+    public function editor()
+    {
+        return $this->hasOne(\App\Models\User::class, 'id', 'editor_id');
     }
 
 

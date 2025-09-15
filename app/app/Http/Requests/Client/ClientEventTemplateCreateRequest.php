@@ -107,7 +107,7 @@ class ClientEventTemplateCreateRequest extends FormRequest
             'executors'         => 'sometimes|array',
             'executors.*'       => 'integer',
             'begin'             => 'integer|required',
-            'author'            => 'required|integer',
+            'author'            => 'required|integer|min:1',
             'resolve'           => 'required|bool',
             'process'           => 'required',
             'links'             => 'sometimes|array',

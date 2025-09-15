@@ -35,7 +35,7 @@ class CreditResource extends JsonResource
                 'id' => $this->status->id,
                 'name' => $this->status->name,
             ] : [],
-            'author' => new UserSmallResource($this->author),
+            'author' => (new UserSmallResource($this->author) ?? []),
 
             //ПРИМЕРНОЕ НАПОЛНЕНИЕ
             'approximates' => $this->approximates->map(function($item){

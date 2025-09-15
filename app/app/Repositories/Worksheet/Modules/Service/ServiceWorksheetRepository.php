@@ -7,6 +7,7 @@ use App\Http\DTO\Worksheet\Service\CreateServiceDTO;
 use App\Http\Filters\WorksheetServiceFilter;
 use App\Models\Worksheet\Service\WSMService;
 use App\Models\Worksheet\Service\WSMServiceCar;
+use App\Services\Comment\Service\ServiceCommentService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use stdClass;
@@ -162,7 +163,11 @@ Class ServiceWorksheetRepository
 
     public function save(WSMService $service, CreateServiceDTO $dto)
     {
-        $result = DB::transaction(function() use($dto, $service) {
+        $service->load('contract','award','deduction', 'service.category', 'payment');
+
+        $original = $service->replicate();
+
+        $result = DB::transaction(function() use($dto, $service, $original) {
             $this->saveService($service, $dto);
 
             $this->createAward($service, $dto);
@@ -174,6 +179,8 @@ Class ServiceWorksheetRepository
             $this->createCar($service, $dto);
 
             $service->refresh();
+
+            ServiceCommentService::handle($service, $original);
 
             return $service;
         }, 1);

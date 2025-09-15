@@ -35,7 +35,7 @@ class ServiceCommentController extends Controller
      */
     public function index(CommentListRequest $request)
     {
-        $comments = WSMServiceComment::where('worksheet_id', $request->validated())->get();
+        $comments = WSMServiceComment::where('worksheet_id', $request->validated())->orderBy('id', 'DESC')->get();
 
         return new CommentServiceCollection($comments);
     }

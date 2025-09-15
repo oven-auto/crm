@@ -23,7 +23,6 @@ class DealTypeController extends Controller
      */
     public function index()
     {
-        //TODO Проверить контроллер получения списка типов оплаты
         return response()->json([
             'data'      => DealType::get(),
             'success'   => 1

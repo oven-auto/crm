@@ -8,6 +8,9 @@ use App\Services\Worksheet\WorksheetUser;
 use App\Models\User;
 use \Illuminate\Database\Eloquent\Collection;
 use \App\Services\Comment\Comment;
+use App\Services\Worksheet\WorksheetSubActionExecutorReporterService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * РЕПОЗИТОРИЙ ПОДЗАДАЧИ
@@ -25,7 +28,7 @@ class SubActionRepository
 {
     private $serviceExecutors;
 
-    public function __construct(\App\Services\Worksheet\WorksheetSubActionExecutorReporterService $service)
+    public function __construct(WorksheetSubActionExecutorReporterService $service)
     {
         $this->serviceExecutors = $service;
     }
@@ -39,7 +42,9 @@ class SubActionRepository
      */
     public function getAllByWorksheetId(int $worksheetId): Collection
     {
-        $result = SubAction::where('worksheet_id', $worksheetId)->orderBy('id', 'DESC')->get();
+        $result = SubAction::where('worksheet_id', $worksheetId)
+            ->orderBy('id', 'DESC')
+            ->get();
 
         return $result;
     }
@@ -63,20 +68,43 @@ class SubActionRepository
             'worksheet_id' => $data['worksheet_id'],
             'title' => $data['title'],
         ])->save();
+        
+        Comment::add($subAction, 'create');
 
         if ($subAction->title && $subAction->title != $oldTitle && $oldTitle)
             Comment::add($subAction, 'update');
 
-        if ($subAction->wasRecentlyCreated)
-            $this->serviceExecutors->setExecutors($subAction, auth()->user()->id);
-
         if (isset($data['comment']))
             $this->writeComment($subAction, $data['comment']);
+
+        if ($subAction->wasRecentlyCreated)
+            $this->serviceExecutors->setExecutors($subAction, Auth::id());     
 
         $subAction->refresh();
 
         $subAction->load(['comments', 'executors']);
     }
+
+
+    //TODO Переделать сохранение создать ДТО, РЕКВЕСТ
+    // public function create(array $data)
+    // {
+    //     $action = app()->make(SubAction::class);
+
+    //     $this->save1($action, $data);
+    // }
+
+
+
+    // public function save1(SubAction $action, array $data)
+    // {
+    //     $action->fill(Arr::only($data, ['worksheet_id', 'title']))->save();
+
+    //     $this->writeComment($action, $data['comment']);
+
+    //     if(count($data['executors']))
+    //         $this->serviceExecutors->setExecutors($action, Auth::id());
+    // }
 
 
 

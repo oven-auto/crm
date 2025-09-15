@@ -61,8 +61,6 @@ class SubActionController extends Controller
     {
         $this->repo->save(subAction: $subAction, data: $request->all());
 
-        Comment::add($subAction, 'create');
-
         return (new SubActionResource($subAction))->additional(['message' => 'Подзадача создана']);
     }
 

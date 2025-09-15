@@ -21,19 +21,21 @@ Class WorksheetExecutorReportService
     */
     public function attach(Worksheet|int $worksheet, Collection|array|int $users, $comment = true) : void
     {
+        
         $worksheet = is_numeric($worksheet) ? Worksheet::findOrfail($worksheet) : $worksheet;
         //Если просто число, то переводим в массив
         $users = is_numeric($users) ? [$users] : $users;
         //Если коллекция то переводим в массив
         $users = ($users instanceof Collection) ? $users->pluck('id')->toArray() : $users;
         //Добавляем автора в массив
-        $users[] = $worksheet->author_id;
+        $users[] = $worksheet->author_id;   
         //Отбрасываем не уникальных
         $users = ArrayHelper::except($users, $worksheet->executors->pluck('id')->toArray());
         //Присоединяем как исполнителей
         $worksheet->executors()->attach($users);
         //Комментируем
-        !$comment ?: Comment::add(self::commentModel($worksheet, new User()), 'attach',  User::whereIn('id',$users)->get());
+        if($users)
+            !$comment ?: Comment::add(self::commentModel($worksheet, new User()), 'attach',  User::whereIn('id',$users)->get());
         //Отправляем уведомление
         TelegramNotice::run($worksheet)->executor()->send(ArrayHelper::except($users, auth()->user()->id));
     }

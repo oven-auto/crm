@@ -7,6 +7,7 @@ use App\Http\DTO\Worksheet\Credit\CreateCreditDTO;
 use App\Http\Filters\CreditFilter;
 use App\Models\WSMCredit;
 use App\Models\WSMCreditCar;
+use App\Services\Comment\Credit\CreditCommentService;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -120,7 +121,9 @@ Class CreditRepository
 
     private function save(WSMCredit $credit, CreateCreditDTO $dto)
     {
-        $result = DB::transaction(function() use ($credit, $dto){
+        $original = $credit->load(['award','contract','calculation'])->replicate();
+
+        $result = DB::transaction(function() use ($credit, $dto, $original){
             $credit->fill((array) $dto->credit)->save();
 
                 $this->createAward($credit, $dto);
@@ -139,6 +142,8 @@ Class CreditRepository
                 $this->createCar($credit, $dto);
 
             $credit->refresh();
+
+            CreditCommentService::handle($credit, $original);
             
             return $credit;
         }, 3);

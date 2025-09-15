@@ -9,9 +9,10 @@ use Illuminate\Support\Arr;
 Class CreateTraficDTO
 {
     public function __construct(
-            public readonly int|null $trafic_brand_id ,
-            public readonly int|null $trafic_section_id,
+            public readonly int|null $company_id ,
+            public readonly int|null $company_structure_id,
             public readonly int|null $trafic_appeal_id,
+
             public readonly Carbon|null $begin_at,
             public readonly string|null $comment,
             public readonly string|null $created_at,
@@ -72,8 +73,8 @@ Class CreateTraficDTO
             trafic_zone_id: Arr::get($data, 'trafic_zone_id', null),
             trafic_need_id: Arr::get($data, 'trafic_need_id', null),
 
-            trafic_brand_id: Arr::get($data, 'trafic_brand_id'),
-            trafic_section_id: Arr::get($data, 'trafic_section_id'),
+            company_id: Arr::get($data, 'trafic_brand_id'),
+            company_structure_id: Arr::get($data, 'trafic_section_id'),
             trafic_appeal_id: Arr::get($data, 'trafic_appeal_id'),
 
             inn: Arr::get($data, 'inn'),

@@ -61,7 +61,7 @@ class SQL_VIEW_TRAFIC_PRODUCT extends Command
                     cb.company_id as company_id,
                     0 as duration,
                     IFNULL(min(cprice.price),0) as price,
-                    NULL as description,
+                    m.brand_id as description,
                     NULL as group_id
                 FROM marks as m
                 LEFT JOIN company_brands as cb on cb.brand_id = m.brand_id

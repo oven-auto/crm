@@ -142,8 +142,8 @@ class WorksheetServiceCreateRequest extends FormRequest
             'close'             => 'sometimes',
 
             'number'            => 'sometimes',
-            'begin_at'          => 'required_with:number',
-            'register_at'       => 'required_with:number',
+            'begin_at'          => 'required_with:number|date_format:d.m.Y',
+            'register_at'       => 'required_with:number|date_format:d.m.Y',
             'decorator'         => 'required_with:number',
             'manager'           => 'required_with:number',
 

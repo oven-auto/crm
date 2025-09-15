@@ -14,4 +14,16 @@ class WSMServiceState extends Model
     ];
 
     public $table = 'wsm_service_states';
+
+
+
+    public function getStateNameAttribute()
+    {
+        return match($this->state) {
+            'work' => 'В работе',
+            'issue' => 'Оформлен',
+            'miss' => 'Упущен',
+            default => '',
+        };
+    }
 }

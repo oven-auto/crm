@@ -88,7 +88,6 @@ use App\Http\Controllers\Api\v1\Services\Select\DealTypeController;
 use App\Http\Controllers\Api\v1\Services\TemplateProcessController;
 use App\Http\Middleware\Permissions\Audit\AuditCRUDMiddleware;
 use App\Http\Middleware\Permissions\Audit\AuditMasterMiddleware;
-use App\Models\Audit\AuditMaster;
 
 Route::get('test', [HomeController::class, 'test']);
 
@@ -284,7 +283,6 @@ Route::middleware(['userfromtoken'])->group(function () {
                 //СПИСОК ТИПОВ РАПОТРА
                 Route::get('report_types', [CarBuisnesStatusController::class, 'report']);
 
-                //TODO настроить выдачу шаблонов
                 Route::get('templateprocess', [TemplateProcessController::class, 'index']);
                 
                 Route::get('creditstatuses',  [StatusController::class, 'index']);
@@ -1116,7 +1114,6 @@ Route::middleware(['userfromtoken'])->group(function () {
             /**
              * СЕРВИСЫ
              */
-            //TODO МАРШРУТЫ МОДУЛЯ ДОБАВЛЕНИЯ ПРОДУКТОВ В РЛ
             Route::prefix('services')->group(function() {
                 Route::prefix('comments')->group(function(){
                     Route::get('', [ServiceCommentController::class, 'index']);
@@ -1135,7 +1132,6 @@ Route::middleware(['userfromtoken'])->group(function () {
             /**
              * КРЕДИТЫ
              */
-            //TODO МАРШРУТЫ ДОБАВЛЕНИЯ КРЕДИТОВ В РЛ
             Route::prefix('credits')->group(function(){
                 Route::prefix('comments')->group(function(){
                     Route::get('', [CreditCommentController::class, 'index']);
@@ -1300,7 +1296,7 @@ Route::middleware(['userfromtoken'])->group(function () {
 
 
 
-    //TODO МАРШРУТЫ СОЗДАНИЯ ПРОДКУТОВ
+    //МАРШРУТЫ СОЗДАНИЯ ПРОДКУТОВ
     Route::prefix('finservices')->group(function(){
         Route::get('payments',  [\App\Http\Controllers\Api\v1\Back\Service\PaymentController::class, 'index']);
         
@@ -1319,7 +1315,7 @@ Route::middleware(['userfromtoken'])->group(function () {
 
 
 
-    //TODO МАРШРУТЫ ДЛЯ СПИСКА ФИНУСЛУГ 
+    //МАРШРУТЫ ДЛЯ СПИСКА ФИНУСЛУГ 
     Route::prefix('servicelist')->group(function() {
         Route::get('',      [ServiceListController::class, 'index']);
         Route::get('count', [ServiceListController::class, 'count']);
@@ -1327,7 +1323,7 @@ Route::middleware(['userfromtoken'])->group(function () {
 
 
 
-    //TODO МАРШРУТЫ ДЛЯ СПИСКА КРЕДИТОВ 
+    //МАРШРУТЫ ДЛЯ СПИСКА КРЕДИТОВ 
     Route::prefix('creditlist')->group(function() {
         Route::patch('tactics/{id}/restore', [TacticController::class, 'restore']);
         Route::resource('tactics', TacticController::class)->except(['edit']);

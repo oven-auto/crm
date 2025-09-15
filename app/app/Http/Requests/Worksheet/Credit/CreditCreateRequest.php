@@ -188,7 +188,7 @@ class CreditCreateRequest extends FormRequest
           
             'status'            => 'sometimes|numeric|nullable',
         
-            'author'            => 'required|numeric',
+            'author'            => 'sometimes|numeric',
         
             'close'             => 'sometimes|numeric',
           

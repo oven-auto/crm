@@ -39,7 +39,7 @@ Class CreateEventFromService
         $handler = new self(
             service:        $service,
         );
-
+        
         foreach($handler->templates as $template)
             if(!$handler->service->event)
             {   
@@ -76,6 +76,8 @@ Class CreateEventFromService
             'processed_at' => now(),
             'author_id' => Auth::id()
         ])->save();
+
+        $event->lastStatus->addComment('Расторжение договора по продукту № '.$this->service->id);
     }
 
 
@@ -87,6 +89,8 @@ Class CreateEventFromService
             'processed_at' => null,
             'author_id' => null
         ])->save();
+
+        $event->lastStatus->addComment('Восстановление договора по продукту № '.$this->service->id);
     }
 
 
@@ -96,10 +100,10 @@ Class CreateEventFromService
         $event = ClientEvent::where('id', $this->service->event->client_event_id)->first();
         
         $title = $template->title;
-
+       
         if($this->service->isClosed())
         {
-           $title =  ' (расторгнут)';
+           $title .= ' (расторгнут)';
            $this->closeEvent($event);
         }
         else 

@@ -14,7 +14,7 @@ Class CreateCreditVO
         public readonly int|null $creditor_id,
         public readonly int|null $status_id,
         public readonly int|null $author_id,
-        public readonly bool|null $close,
+        public readonly bool $close,
         public readonly bool $broker_deal,
         public readonly int $creator_id,
     )
@@ -33,7 +33,7 @@ Class CreateCreditVO
             creditor_id             : Arr::get($data, 'creditor'), 
             status_id               : Arr::get($data, 'status', null),
             author_id               : Arr::get($data, 'author'),
-            close                   : Arr::get($data, 'close'),  
+            close                   : Arr::get($data, 'close', false),  
             broker_deal             : Arr::get($data, 'broker_deal', 0),
             creator_id              : Auth::id(),
         );

@@ -30,7 +30,7 @@ Class CreateContractVO
 
         if(isset($data['register_at']))    
             $register = DateHelper::createFromString($data['register_at']);
-
+        
         return new self(
             number             : $data['number'] ?? null,
             begin_at           : $begin,

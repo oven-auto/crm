@@ -21,12 +21,12 @@ class SQL_VIEW_SERVICE_STATE extends Command
                             w_ser.simple = 0 AND 
                             w_con.register_at IS NULL
                             THEN 'work'
-                        WHEN 
-                            w_con.register_at IS NOT NULL
-                            THEN 'issue'
                         WHEN
                             w_ser.simple = 1
                             THEN 'miss'
+                        WHEN 
+                            w_con.register_at IS NOT NULL
+                            THEN 'issue'                        
                         ELSE 
                             'work'
                     END as state

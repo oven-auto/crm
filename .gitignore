@@ -1,2 +1,4 @@
 /docker/images
 /backup
+/docker/nginx/logs
+

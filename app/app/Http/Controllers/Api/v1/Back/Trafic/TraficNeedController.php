@@ -19,7 +19,7 @@ class TraficNeedController extends Controller
 
 
     public function index($company_id = 0, )
-    {
+    {   
         $service = new AppealRepository();
 
         $appeals = $service->getAppealWithProductByCompanyId($company_id);
@@ -30,7 +30,7 @@ class TraficNeedController extends Controller
 
 
     public function appealneed($trafic_appeal_id = '')
-    {
+    {   
         $products = $this->repo->getProductsToTrafic('onlyservice');
 
         return response()->json([
@@ -42,7 +42,7 @@ class TraficNeedController extends Controller
 
 
     public function models($company_id = '')
-    {
+    {   
         $products = $this->repo->getProductsToTrafic('onlymark');
 
         return response()->json([

@@ -44,7 +44,7 @@ class TraficController extends Controller
 
 
     public function update(Trafic $trafic,  TraficCreateRequest $request)
-    {   
+    {  
         $this->repo->save($trafic, $request->getDTO());
 
         return (new TraficSaveResource($trafic));

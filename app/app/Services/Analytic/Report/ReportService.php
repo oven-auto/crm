@@ -48,7 +48,6 @@ Class ReportService
      */
     public function getWorkedReport(array $data)
     {   
-        //TODO Поправить работы аналитики КЛИЕНЫ В РАБОТЕ
         $data = [
             'logistic_statuses' => ['in_stock'], //на складе
             'type_statuses' => ['reserved', 'client'], //только клиентские и резерв

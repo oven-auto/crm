@@ -3,13 +3,14 @@
 namespace App\Services\Comment;
 
 use App\Models\Interfaces\CommentInterface;
-use App\Models\USer;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 Class WorksheetExecutorComment extends AbstractComment
 {
     public function __construct(CommentInterface $model)
     {
-        $action_id = \DB::table('worksheet_actions')
+        $action_id = DB::table('worksheet_actions')
             ->select('id')
             ->where('worksheet_id', $model->worksheet_id)
             ->orderBy('worksheet_actions.id', 'DESC')
@@ -30,6 +31,7 @@ Class WorksheetExecutorComment extends AbstractComment
     public function attach(CommentInterface $model, \Illuminate\Support\Collection $data)
     {
         $names = $data->map(fn($item) => $item->cut_name)->toArray();
+
         return array_merge($this->data, [
             'text' => 'В рабочий лист добавлены новые участники: '.join(', ',$names),
             'type' => 1

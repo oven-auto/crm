@@ -48,6 +48,11 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // parent::boot();
+
+        // Event::listen(['eloquent.saved: *', 'eloquent.created: *',], function($context) {
+        //     dump($context); 
+        // // YOUR CODE GOES HERE
+        // });
     }
 }

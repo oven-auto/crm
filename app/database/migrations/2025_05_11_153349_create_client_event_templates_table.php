@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreignId('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('status')->default(1);
             $table->softDeletes();
+            $table->foreignId('editor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

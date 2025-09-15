@@ -24,7 +24,7 @@ class CreateServiceDTO
 
 
     public static function fromArray(array $data) : self
-    {    
+    {   
         return new self(
             service: CreateServiceVO::fromArray(Arr::only($data, ['worksheet', 'service', 'payment', 'provider', 'cost', 'simple', 'close'])),
             award: CreateAwardVO::fromArray(Arr::only($data, ['award', 'award_complete'])),
