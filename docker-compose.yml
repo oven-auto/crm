@@ -5,7 +5,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: "172.16.238.0/24"
+        - subnet: "172.16.239.0/24"
   database:
 
 
@@ -17,7 +17,7 @@ services:
       dockerfile: nginx.docker
     networks:
       general:
-        ipv4_address: 172.16.238.10
+        ipv4_address: 172.16.239.10
     volumes:
       - ./docker/nginx:/etc/nginx/conf.d
       - ./docker/nginx/logs:/var/log/nginx/
@@ -36,7 +36,7 @@ services:
       dockerfile: docker/php-fpm.docker
     networks:
       general:
-        ipv4_address: 172.16.238.11
+        ipv4_address: 172.16.239.11
       database:
     volumes:
       - ./app/:/var/www
@@ -59,7 +59,7 @@ services:
       dockerfile: docker/php-cli.docker
     networks:
       general:
-        ipv4_address: 172.16.238.12
+        ipv4_address: 172.16.239.12
       database:
     volumes:
       - ./app/:/var/www
@@ -132,7 +132,7 @@ services:
       - "63798:6379"
     networks:
       general:
-        ipv4_address: 172.16.238.15
+        ipv4_address: 172.16.239.15
 
 
 
