@@ -330,7 +330,7 @@ Route::middleware(['userfromtoken'])->group(function () {
      **************************************************************************************/
     Route::middleware(['corsing', 'userfromtoken'])->group(function () {
         //middleware сделан в контролере
-        Route::resource('serviceproducts/{id}/restore', [ServiceProductController::class, 'restore']);
+        Route::patch('serviceproducts/{id}/restore', [ServiceProductController::class, 'restore']);
         Route::resource('serviceproducts', '\App\Http\Controllers\Api\v1\Back\ServiceProduct\ServiceProductController')
             ->except(['edit', 'create']);
         //middleware сделан в контролере
