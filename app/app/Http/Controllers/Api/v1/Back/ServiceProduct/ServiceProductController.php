@@ -70,4 +70,13 @@ class ServiceProductController extends Controller
 
         return (new ServiceProductSaveResource($product));
     }
+
+
+
+    public function restore(int $id)
+    {
+        $product = $this->repo->restore($id);
+
+        return (new ServiceProductSaveResource($product));
+    }
 }

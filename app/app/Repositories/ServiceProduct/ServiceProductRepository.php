@@ -23,7 +23,7 @@ Class ServiceProductRepository
             ->orderBy('service_products.name');
 
         if(isset($data['trash']) && $data['trash'])
-            $query->withTrashed();
+            $query->onlyTrashed();
 
         $filter = app()->make(ServiceProductFilter::class, ['queryParams' => array_filter($data)]);
 
@@ -69,5 +69,16 @@ Class ServiceProductRepository
         $product->delete();
 
         return $old;
+    }
+
+
+
+    public function restore(int $id)
+    {
+        $product = $this->getById($id);
+
+        $product->restore();
+
+        return $product;
     }
 }

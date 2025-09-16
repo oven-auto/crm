@@ -45,6 +45,7 @@ use App\Http\Controllers\Api\v1\Back\Payment\PaymentController as CRUDPaymentCon
 use App\Http\Controllers\Api\v1\Back\Service\ServiceCategoryController;
 use App\Http\Controllers\Api\v1\Back\Service\ServiceController;
 use App\Http\Controllers\Api\v1\Back\Service\ServiceProviderController;
+use App\Http\Controllers\Api\v1\Back\ServiceProduct\ServiceProductController;
 use App\Http\Controllers\Api\v1\Back\TargetModel\TargetModelController;
 use App\Http\Controllers\Api\v1\Back\TaskList\OverdueCountController;
 use App\Http\Controllers\Api\v1\Back\UsedCar\UsedCarController;
@@ -329,6 +330,7 @@ Route::middleware(['userfromtoken'])->group(function () {
      **************************************************************************************/
     Route::middleware(['corsing', 'userfromtoken'])->group(function () {
         //middleware сделан в контролере
+        Route::resource('serviceproducts/{id}/restore', [ServiceProductController::class, 'restore']);
         Route::resource('serviceproducts', '\App\Http\Controllers\Api\v1\Back\ServiceProduct\ServiceProductController')
             ->except(['edit', 'create']);
         //middleware сделан в контролере
