@@ -20,8 +20,10 @@ Class ServiceProductRepository
     {
         $query = ServiceProduct::select('service_products.*')
             ->with(['appeals','group',])
-            ->orderBy('service_products.name')
-            ->withTrashed();
+            ->orderBy('service_products.name');
+
+        if(isset($data['trash']) && $data['trash'])
+            $query->withTrashed();
 
         $filter = app()->make(ServiceProductFilter::class, ['queryParams' => array_filter($data)]);
 
@@ -61,7 +63,7 @@ Class ServiceProductRepository
     public function delete(int $id)
     {
         $product = $this->getById($id);
-
+        
         $old = $product->replicate();
 
         $product->delete();

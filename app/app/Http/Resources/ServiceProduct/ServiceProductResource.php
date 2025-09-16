@@ -23,7 +23,8 @@ class ServiceProductResource extends JsonResource
             'group' => $this->group->name,
             'appeals' => $this->appeals->map(function($item){
                 return ['id' => $item->id, 'name' => $item->name];
-            })
+            }),
+            'trash' => $this->deleted_at ? 1 : 0,
         ];
     }
 }

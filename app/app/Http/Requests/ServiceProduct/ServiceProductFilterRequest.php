@@ -21,6 +21,7 @@ class ServiceProductFilterRequest extends FormRequest
             'appeal_ids.*' => 'integer',
             'group_ids' => 'sometimes|array',
             'group_ids.*' => 'integer',
+            'trash' => 'sometimes|boolean',
         ];
     }
 }

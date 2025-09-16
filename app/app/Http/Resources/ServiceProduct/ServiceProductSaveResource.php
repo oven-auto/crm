@@ -24,7 +24,8 @@ class ServiceProductSaveResource extends JsonResource
                 'group_id' => $this->group_id,
                 'appeals' => $this->appeals->map(function($item){
                     return ['id' => $item->id, 'name' => $item->name];
-                })
+                }),
+                'trash' => $this->deleted_at ? 1 : 0,
             ],
             'success' => 1
         ];
