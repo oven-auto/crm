@@ -51,6 +51,7 @@ class SQL_VIEW_TRAFIC_PRODUCT extends Command
                     group_id
                 FROM service_products
                 LEFT JOIN service_product_appeals on service_product_appeals.service_product_id = service_products.id
+                WHERE service_products.deleted_at IS NULL
 
                 UNION SELECT 
                     concat('mark', m.id) as number,
