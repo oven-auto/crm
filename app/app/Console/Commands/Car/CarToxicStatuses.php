@@ -25,15 +25,15 @@ class CarToxicStatuses extends Command
         'logistic_statuses'         => ['in_stock'],    //только авто со склада
     ];
 
-    private const STATUSES = [
-        'preorder' => 1,                                //предзаказ
-        'newentry' => 2,                                //свежее поступление
-        'paidentry' => 3,                               //платный период
-        'overdueentry' => 4,                            //просроченная дебиторка
-        'problem' => 5,                                 //проблемный склад
-        'toxic' => 6,                                   //токсичный склад
+    // private const STATUSES = [
+    //     'preorder' => 1,                                //предзаказ
+    //     'newentry' => 2,                                //свежее поступление
+    //     'paidentry' => 3,                               //платный период
+    //     'overdueentry' => 4,                            //просроченная дебиторка
+    //     'problem' => 5,                                 //проблемный склад
+    //     'toxic' => 6,                                   //токсичный склад
 
-    ];
+    // ];
 
     protected $signature = 'car:toxic';
 
@@ -43,6 +43,8 @@ class CarToxicStatuses extends Command
 
     public function handle()
     {
+        $this->exec();
+        dd(1);
         $time = env('NIGHT_COMMAND_TIME', '01:00');
 
         while(1)
@@ -119,7 +121,7 @@ class CarToxicStatuses extends Command
         $query->where('car_controll_paid_dates.date_at', '>', now());
         
         $cars = $query->get();
-
+        
         Log::channel('car_sale_stock')->alert('Найдено машин удовлетворяющих статусу "Свежее поступление" = '.$cars->count());
         
         foreach($cars as $car)
@@ -139,7 +141,7 @@ class CarToxicStatuses extends Command
         $query->where('car_controll_paid_dates.date_at', '>=', now());
         
         $cars = $query->get();
-
+        
         Log::channel('car_sale_stock')->alert('Найдено машин удовлетворяющих статусу "Платный период" = '.$cars->count());
 
         foreach($cars as $car)
@@ -159,7 +161,7 @@ class CarToxicStatuses extends Command
         $query->where('car_controll_paid_dates.date_at', '<', now());
         
         $cars = $query->get();
-
+        //dump($cars->count());
         Log::channel('car_sale_stock')->alert('Найдено машин удовлетворяющих статусу "Просроченная дебиторка" = '.$cars->count());
 
         foreach($cars as $car)

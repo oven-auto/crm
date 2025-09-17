@@ -8,12 +8,19 @@ use Exception;
 Class PrioritySetter
 {
     private const STATUSES = [
-        'preorder'          => 1,                            //предзаказ
-        'newentry'          => 2,                            //свежее поступление
-        'paidentry'         => 3,                            //платный период
-        'overdueentry'      => 4,                            //просроченная дебиторка
-        'problem'           => 5,                            //проблемный склад
-        'toxic'             => 6,    
+        // 'preorder'          => 1,                            //предзаказ
+        // 'newentry'          => 2,                            //свежее поступление
+        // 'paidentry'         => 3,                            //платный период
+        // 'overdueentry'      => 4,                            //просроченная дебиторка
+        // 'problem'           => 5,                            //проблемный склад
+        // 'toxic'             => 6,    
+
+        'preorder'          => 6,                            //предзаказ
+        'newentry'          => 5,                            //свежее поступление
+        'paidentry'         => 4,                            //платный период
+        'overdueentry'      => 3,                            //просроченная дебиторка
+        'problem'           => 2,                            //проблемный склад
+        'toxic'             => 1,    
     ];
 
     public $car;
@@ -154,9 +161,9 @@ Class PrioritySetter
         if(!$this->hasStockDate())
             $this->car->priority->delete();
         else
-        {
+        {   
             if($this->car->isReserved())
-            {
+            {   
                 if($this->isPreorder())
                 {
                     PreorderState::check($this, self::STATUSES['preorder']);    
