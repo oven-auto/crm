@@ -81,7 +81,7 @@ class WSMCredit extends Model implements HasActivityCarInterface
 
     public function tactic()
     {
-        return $this->hasOne(\App\Models\CreditTactic::class, 'id', 'calculation_type');
+        return $this->hasOne(\App\Models\CreditTactic::class, 'id', 'calculation_type')->withTrashed();
     }
 
 
@@ -161,7 +161,7 @@ class WSMCredit extends Model implements HasActivityCarInterface
         return $this->belongsToMany(
             \App\Models\CreditContent::class, 
             'wsm_credit_contents', 'wsm_credit_id', 'credit_content_id', 'id', 'id'
-        );
+        )->withTrashed();
     }
 
 
