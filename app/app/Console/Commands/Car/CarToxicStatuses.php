@@ -44,7 +44,7 @@ class CarToxicStatuses extends Command
     public function handle()
     {
         $this->exec();
-        dd(1);
+        
         $time = env('NIGHT_COMMAND_TIME', '01:00');
 
         while(1)
